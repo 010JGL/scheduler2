@@ -1,14 +1,15 @@
-import React, { Fragment } from 'react'
-import "components/Appointment/styles.scss";
+import React, { Fragment } from 'react';
+
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import useVisualMode from 'hooks/useVisualMode';
 import Form from './Form';
-import { getAppointmentsForDay } from 'helpers/selectors';
 import Status from './Status';
 import Confirm from './Confirm'
 import Error from './Error';
+
+import "components/Appointment/styles.scss";
 
 
 export default function Appointment(props) {
@@ -54,7 +55,7 @@ export default function Appointment(props) {
 
   return (
 
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
@@ -81,13 +82,13 @@ export default function Appointment(props) {
       {mode === SAVING && (
 
         <Status
-          message={'Saving...'}
+          message={'Saving'}
         />
       )}
       {mode === DELETING && (
 
         <Status
-          message={'DELETING...'}
+          message={'Deleting'}
         />
       )}
       {mode === CONFIRM && (
@@ -95,7 +96,7 @@ export default function Appointment(props) {
         <Confirm
           onConfirm={remove}
           onCancel={back}
-          message="Are you sure you want to delete?"
+          message="Are you sure you would like to delete?"
         />
       )}
       {mode === EDIT && (
@@ -111,14 +112,14 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && (
 
         <Error
-          message="Error, cannot save the appointment"
+          message="Error cannot save the appointment"
           onClose={() => transition(SHOW)}
         />
       )}
       {mode === ERROR_DELETE && (
 
         <Error
-          message="Error, cannot delete the appointment"
+          message="Error cannot delete the appointment"
           onClose={() => transition(SHOW)}
         />
       )}
