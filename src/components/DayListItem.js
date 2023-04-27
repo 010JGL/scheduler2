@@ -13,6 +13,7 @@ const formatSpots = spots => {
   return `${spots} spots remaining`;
 }
 
+
 export default function DayListItem(props) {
   
   const availabilityMesage = formatSpots(props.spots);

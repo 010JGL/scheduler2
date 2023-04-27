@@ -5,10 +5,8 @@ import 'components/InterviewerList.scss';
 import InterviewerListItem from 'components/InterviewerListItem';
 
 
-
 export default function InterviewerList({value, interviewers, onChange}) {
 
-  //console.log('interviewers:', interviewers)
   const listOfInterviewers = interviewers.map(interviewer => {
 
     return (

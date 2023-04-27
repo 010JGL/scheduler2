@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Header from "./Header";
 import Show from "./Show";
@@ -37,7 +37,6 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(() => {
-        //console.log(`Error saving`)
         transition(ERROR_SAVE, true)
       });
   }
@@ -47,7 +46,6 @@ export default function Appointment(props) {
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(() => {
-        //console.log(`Error DELETING`)
         transition(ERROR_DELETE, true)
       })
       
@@ -106,7 +104,6 @@ export default function Appointment(props) {
           onSave={save}
           onCancel={back}
           student={props.interview.student}
-
         />
       )}
       {mode === ERROR_SAVE && (
@@ -128,6 +125,3 @@ export default function Appointment(props) {
   )
 }
 
-
-
-//{ props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : <Empty /> }

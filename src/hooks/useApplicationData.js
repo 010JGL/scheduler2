@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function useApplicationData() {
 
@@ -60,8 +59,6 @@ export default function useApplicationData() {
     days[dayOfTheWeek] = day;
 
 
-
-
     // url where we want to make our demand
     const url = `/api/appointments/${id}`;
     const data = { interview };
@@ -103,8 +100,6 @@ export default function useApplicationData() {
       })
   };
 
-  let dailyAppointments = getAppointmentsForDay(state, state.day);
-  let dailyInterviewers = getInterviewersForDay(state, state.day);
 
   const setDay = day => setState({ ...state, day });
 

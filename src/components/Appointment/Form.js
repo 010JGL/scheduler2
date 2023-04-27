@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
@@ -9,7 +9,6 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
-
 
   const reset = () => {
     setStudent("")
@@ -26,12 +25,15 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return;
     }
+    if (interviewer === null) {
+      setError("Interviewer cannot be blank")
+      return;
+    }
     
     setError("");
     props.onSave(student, interviewer);
   }
 
-  //console.log("props.interviewers", props.interviewers)
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">

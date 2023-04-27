@@ -145,36 +145,36 @@ describe('Application', () => {
     expect(getByText(appointment, "Error")).toBeInTheDocument();
 
   })
+
+
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    // make sure to call the right axios. here
+    axios.delete.mockRejectedValueOnce();
+
+    // 1. Render the Application.
+    const { container, debug } = render(<Application />);
+
+    // 2. Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    // 3. Click the "Delete" button on the booked appointment.
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+
+    fireEvent.click(queryByAltText(appointment, "Delete"));
+    expect(getByText(appointment, "Are you sure you would like to delete?")).toBeInTheDocument();
+    // 4. Click the confirm , mode CONFIRM
+    fireEvent.click(queryByText(appointment, "Confirm"))
+
+    // 5. Check for the deleting transition
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+    // 6. wait for the error mesage 
+    await waitForElement(() => getByText(appointment, "Error"));
+    // 7. check for the error message
+    expect(getByText(appointment, "Error")).toBeInTheDocument();
+
+
+  });
+
 });
-
-it("shows the delete error when failing to delete an existing appointment", async () => {
-  // make sure to call the right axios. here
-  axios.delete.mockRejectedValueOnce();
-
-  // 1. Render the Application.
-  const { container, debug } = render(<Application />);
-
-  // 2. Wait until the text "Archie Cohen" is displayed.
-  await waitForElement(() => getByText(container, "Archie Cohen"));
-
-  // 3. Click the "Delete" button on the booked appointment.
-  const appointment = getAllByTestId(container, "appointment").find(
-    appointment => queryByText(appointment, "Archie Cohen")
-  );
-
-  fireEvent.click(queryByAltText(appointment, "Delete"));
-  expect(getByText(appointment, "Are you sure you would like to delete?")).toBeInTheDocument();
-  // 4. Click the confirm , mode CONFIRM
-  fireEvent.click(queryByText(appointment, "Confirm"))
-
-  // 5. Check for the deleting transition
-  expect(getByText(appointment, "Deleting")).toBeInTheDocument();
-  // 6. wait for the error mesage 
-  await waitForElement(() => getByText(appointment, "Error"));
-  // 7. check for the error message
-  expect(getByText(appointment, "Error")).toBeInTheDocument();
-
-
-});
-
-
